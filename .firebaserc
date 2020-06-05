@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mafia-game-239ba": {
+      "hosting": {
+        "MafiaGame": [
+          "mafia-game-239ba"
+        ]
+      }
+    }
+  }
+}

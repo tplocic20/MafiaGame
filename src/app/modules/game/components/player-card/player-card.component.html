@@ -1,0 +1,27 @@
+<div fxFlexFill fxLayoutAlign.lt-md="center center">
+  <div class="p-2 pt-5">
+    <mat-card class="player-card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <img class="player-avatar" src="assets/images/hat.png" alt="avatar">
+        </div>
+        <mat-card-title>{{me | async | json}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Player tips:</h3>
+        <ol>
+          <li>Remember to not show other players Your identity</li>
+          <li>If You fail at that do not worry, because initially all roles will be displayed as 'Townie'</li>
+          <li>Use "Toggle my vision" to switch between Townie view and Your special view.
+            <strong class="d-block">Beware!</strong> Someone may be watching
+          </li>
+        </ol>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="text-center">
+          <button mat-stroked-button (click)="toggleVision()">Toggle my vision</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

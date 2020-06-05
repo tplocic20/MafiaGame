@@ -1,0 +1,22 @@
+<div class="text-center mt-2">
+  <form [formGroup]="form" (keyup.enter)="join()">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Game code</mat-label>
+      <input matInput formControlName="gameCode" placeholder="Game code">
+      <mat-error *ngIf="gameCodeCtrl.hasError('required')">
+        Game code is (obviously) <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="gameCodeCtrl.hasError('InvalidCode')">
+        Invalid Game code
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Player name</mat-label>
+      <input matInput formControlName="playerName" placeholder="Player name">
+      <mat-error *ngIf="playerNameCtrl.hasError('required')">
+        Player name <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="join()">Start</button>
+  </form>
+</div>

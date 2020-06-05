@@ -1,0 +1,24 @@
+.side-drawer-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -10px;
+  min-width: 30px;
+  border-radius: 0 32px 32px 0;
+  transition: all 150ms ease-out;
+  i {
+    transition: all 150ms;
+  }
+  &:hover {
+    left: -1px;
+    min-width: 64px;
+  }
+}
+
+@media (pointer:none), (pointer:coarse) {
+  .side-drawer-button,
+  .side-drawer-button:hover {
+    left: -5px;
+    min-width: 30px;
+  }
+}

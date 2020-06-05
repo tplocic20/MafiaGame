@@ -1,0 +1,8 @@
+.login-card {
+  max-width: 500px;
+  margin: auto;
+  &.mat-card {
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,.12);;
+  }
+}

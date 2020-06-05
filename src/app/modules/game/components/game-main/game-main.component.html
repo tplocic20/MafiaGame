@@ -1,0 +1,11 @@
+<mat-drawer-container fxFill hasBackdrop="false">
+  <mat-drawer #drawerLeft mode="side">
+    <app-player-card [drawer]="drawerLeft"></app-player-card>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button class="side-drawer-button" mat-stroked-button color="primary" (click)="drawerLeft.toggle()">
+      <i class="fas fa-chevron-right"
+         [class.fa-rotate-180]="drawerLeft.opened"></i>
+    </button>
+  </mat-drawer-content>
+</mat-drawer-container>

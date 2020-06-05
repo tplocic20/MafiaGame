@@ -1,0 +1,22 @@
+<div fxFlexFill fxLayoutAlign="center center">
+  <mat-card class="login-card overflow-hidden">
+    <img class="mx-2 mw-100" src="assets/images/hat.png" alt="El banditos">
+    <mat-card-content>
+      <h1 class="text-center">Mafia Game</h1>
+      <p>Have you ever had a similar problem?</p>
+      <p>Everybody wants to play but nobody want't to be a game master? Well...</p>
+      <h3>Good news!!</h3>
+      <p>This app will be the best and totally neutral game master</p>
+      <mat-divider></mat-divider>
+      <div class="pt-2 text-center" @backOutRight *ngIf="!gameForm">
+        <button mat-flat-button color="primary" (click)="newGame()">Start new game</button>
+        <p class="my-1">or</p>
+        <button mat-button color="primary" (click)="joinGame()">Join existing</button>
+      </div>
+      <div *ngIf="gameForm" @fadeIn [ngSwitch]="gameForm">
+        <app-new-game-form *ngSwitchCase="JoinFormEnum.NewGame"></app-new-game-form>
+        <app-join-game-form *ngSwitchCase="JoinFormEnum.JoinGame"></app-join-game-form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
