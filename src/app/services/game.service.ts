@@ -60,9 +60,9 @@ export class GameService implements OnDestroy {
       )
   }
 
-  joinGame(accessCode: string, playerName: string) {
+  joinGame(code: string, playerName: string) {
     return this.db.list('games',
-      ref => ref.orderByChild('accessCode()').equalTo(accessCode).limitToFirst(1))
+      ref => ref.orderByChild('accessCode()').equalTo(code).limitToFirst(1))
       .snapshotChanges()
       .pipe(
         take(1),
@@ -72,6 +72,12 @@ export class GameService implements OnDestroy {
           } else {
             this.fetchGame(res[0].key)
           }
+        }),
+        switchMap(res => {
+          this.gameKey = res[0].key;
+          return combineLatest([this.joinPlayer(playerName), this.fetchGame(res[0].key)]).pipe(
+            map(_ => code)
+          )
         })
       )
   }
