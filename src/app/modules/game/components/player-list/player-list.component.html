@@ -1,0 +1,22 @@
+<div fxLayout fxLayoutAlign="center center" class="p-1">
+  <mat-card class="player-card"
+            fxFlex.gt-md="30%"
+            fxFlex.md="60%"
+            fxFlex.sm="100%">
+    <mat-card-content fxLayout="column">
+      <mat-list>
+        <mat-list-item *ngFor="let player of (players | async)">
+          <img src="assets/images/hat.png" alt="avatar" mat-list-icon>
+          <div mat-line>{{player.name}}</div>
+        </mat-list-item>
+      </mat-list>
+      <h4>{{(players | async)?.length}}/6 players</h4>
+      <p *ngIf="(players | async)?.length < 6">
+        Waiting for more players to join
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary">Ready</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

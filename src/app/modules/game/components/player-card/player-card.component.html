@@ -5,7 +5,7 @@
         <div mat-card-avatar>
           <img class="player-avatar" src="assets/images/hat.png" alt="avatar">
         </div>
-        <mat-card-title>{{me | async | json}}</mat-card-title>
+        <mat-card-title>{{(me | async).name}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <h3>Player tips:</h3>

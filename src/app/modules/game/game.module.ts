@@ -7,18 +7,21 @@ import { PlayerCardComponent } from './components/player-card/player-card.compon
 import {MatCardModule} from "@angular/material/card";
 import {FlexModule} from "@angular/flex-layout";
 import {MatButtonModule} from "@angular/material/button";
+import { PlayerListComponent } from './components/player-list/player-list.component';
+import {MatListModule} from "@angular/material/list";
 
 
 
 @NgModule({
-  declarations: [GameMainComponent, PlayerCardComponent],
+  declarations: [GameMainComponent, PlayerCardComponent, PlayerListComponent],
     imports: [
         CommonModule,
         GameRouter,
         MatSidenavModule,
         MatCardModule,
         FlexModule,
-        MatButtonModule
+        MatButtonModule,
+        MatListModule
     ]
 })
 export class GameModule { }

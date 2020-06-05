@@ -12,6 +12,7 @@ import {take} from "rxjs/operators";
 export class NewGameFormComponent implements OnInit {
 
   public form: FormGroup;
+  public loading = false;
 
   constructor(private readonly fb: FormBuilder,
               private readonly router: Router,
@@ -29,12 +30,16 @@ export class NewGameFormComponent implements OnInit {
 
   start() {
     this.form.markAllAsTouched();
-    if (this.form.valid) {
+    if (this.form.valid && !this.loading) {
+      this.loading = true;
       const data = this.form.value;
       this.gameService.newGame(data.playerName).pipe(
         take(1)
       ).subscribe(gameCode => {
-        this.router.navigate(['game', gameCode])
+        console.log(gameCode);
+        this.router.navigate(['game', gameCode]).then(_ => {
+          this.loading = false;
+        })
       })
     }
   }
