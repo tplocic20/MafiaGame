@@ -3,5 +3,6 @@ export enum GameState {
   FirstNight,
   Day,
   Night,
-  Result
+  Vote,
+  Result,
 }

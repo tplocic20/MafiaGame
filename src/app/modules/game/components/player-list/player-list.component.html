@@ -8,6 +8,9 @@
         <mat-list-item *ngFor="let player of (players | async)">
           <img src="assets/images/hat.png" alt="avatar" mat-list-icon>
           <div mat-line>{{player.name}}</div>
+          <button mat-stroked-button color="primary">
+            Blame
+          </button>
         </mat-list-item>
       </mat-list>
       <h4>{{(players | async)?.length}}/6 players</h4>

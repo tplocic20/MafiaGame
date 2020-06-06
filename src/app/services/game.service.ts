@@ -44,7 +44,16 @@ export class GameService implements OnInit, OnDestroy {
           this.handleGameStart(game);
           break;
         case GameState.FirstNight:
+          this.handleFirstNight(game);
           break;
+        case GameState.Day:
+          this.handleFirstNight(game);
+          break;
+        case GameState.Vote:
+          this.handleTownVote(game);
+          break;
+        case GameState.Night:
+          this.handleNight(game);
       }
     }
   }
@@ -52,10 +61,34 @@ export class GameService implements OnInit, OnDestroy {
   private handleGameStart(game: Game) {
     const playerKeys = Object.keys(game.players);
     this.db.object(`/games/${this.gameKey}`).update({
-      state: GameState.Day
+      state: GameState.FirstNight
     }).then(_ => {
       this.calcMafia(playerKeys);
     })
+  }
+
+  private handleFirstNight(game: Game) {
+    this.db.object(`/games/${this.gameKey}`).update({
+      state: GameState.Day
+    });
+  }
+
+  private handleDay(game: Game) {
+    this.db.object(`/games/${this.gameKey}`).update({
+      state: GameState.Vote
+    });
+  }
+
+  private handleNight(game: Game) {
+    this.db.object(`/games/${this.gameKey}`).update({
+      state: GameState.Day
+    });
+  }
+
+  private handleTownVote(game: Game) {
+    this.db.object(`/games/${this.gameKey}`).update({
+      state: GameState.Night
+    });
   }
 
   private calcMafia(playersKeys: string[]) {

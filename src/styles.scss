@@ -13,18 +13,30 @@ body::after{
 }
 
 .background-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
   -webkit-transition: background-image 0.2s ease-in-out;
-  transition: background-image 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
   background-image: url("./assets/images/miasto_zmierzch.png ");
+
+  @media (min-width: 768px) {
+    bottom: 40px;
+  }
 }
 .day {
   background-image: url("./assets/images/miasto_dzien.png");
 }
 .night {
   background-image: url("./assets/images/miasto_noc.png");
+}
+
+.custom-background-drawer {
+  background: transparent;
 }
 
 .player-card {

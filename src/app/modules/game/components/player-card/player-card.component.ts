@@ -4,6 +4,7 @@ import {GameService} from "../../../../services/game.service";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {GameState} from "../../../../models/game-state.enum";
+import {PlayerAlignment} from "../../../../models/player-alignment.enum";
 
 @Component({
   selector: 'app-player-card',
@@ -11,6 +12,7 @@ import {GameState} from "../../../../models/game-state.enum";
   styleUrls: ['./player-card.component.scss']
 })
 export class PlayerCardComponent implements OnInit {
+  PlayerAlignment = PlayerAlignment;
 
   @Input() drawer: MatDrawer;
   public me = this.gameService.me;

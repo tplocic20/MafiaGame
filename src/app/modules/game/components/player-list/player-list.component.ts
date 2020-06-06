@@ -21,7 +21,6 @@ export class PlayerListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.players = this.game.pipe(
-      tap(item => console.log(item)),
       map(game => {
         const keys = Object.keys(game.players)
         return keys.map(key => {

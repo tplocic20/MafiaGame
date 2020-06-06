@@ -3,7 +3,8 @@
     <mat-card class="player-card">
       <mat-card-header>
         <div mat-card-avatar>
-          <img class="player-avatar" src="assets/images/hat.png" alt="avatar">
+          <img class="player-avatar" src="assets/images/hat.png" *ngIf="(me | async)?.alignment === PlayerAlignment.Mafia" alt="avatar">
+          <img class="player-avatar" src="assets/images/city.png" *ngIf="(me | async)?.alignment === PlayerAlignment.Townie" alt="avatar">
         </div>
         <mat-card-title>{{(me | async).name}}</mat-card-title>
       </mat-card-header>
