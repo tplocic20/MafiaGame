@@ -17,6 +17,12 @@
         Player name <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="join()">Start</button>
+    <div class="position-relative w-100">
+      <button class="form-back-button" mat-flat-button (click)="back.emit()">
+        <i class="fa fa-arrow-left"></i>
+        Back
+      </button>
+      <button mat-flat-button color="primary" (click)="join()">Start</button>
+    </div>
   </form>
 </div>

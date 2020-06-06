@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDrawer} from "@angular/material/sidenav";
 import {GameService} from "../../../../services/game.service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {GameState} from "../../../../models/game-state.enum";
 
 @Component({
   selector: 'app-player-card',
@@ -11,10 +14,14 @@ export class PlayerCardComponent implements OnInit {
 
   @Input() drawer: MatDrawer;
   public me = this.gameService.me;
+  public gameReady: Observable<boolean>;
 
   constructor(private readonly gameService: GameService) { }
 
   ngOnInit(): void {
+    this.gameReady = this.gameService.game.pipe(
+      map(game => game.state !== GameState.Lobby)
+    );
   }
 
   toggleVision() {

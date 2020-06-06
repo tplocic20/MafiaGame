@@ -2,7 +2,7 @@
   <mat-card class="player-card"
             fxFlex.gt-md="30%"
             fxFlex.md="60%"
-            fxFlex.sm="100%">
+            fxFlex.lt-md="100%">
     <mat-card-content fxLayout="column">
       <mat-list>
         <mat-list-item *ngFor="let player of (players | async)">
@@ -16,7 +16,13 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">Ready</button>
-    </mat-card-actions>
+      <div class="text-center">
+        <button mat-flat-button color="primary" [class.opacity-07]="(me | async)?.ready" (click)="toggleReady()">
+          <span *ngIf="!(me | async)?.ready">Ready</span>
+          <mat-spinner color="accent" class="d-inline-block button-spinner__Left" diameter="20"
+                       *ngIf="(me | async)?.ready"></mat-spinner>
+          <span *ngIf="(me | async)?.ready">Waiting for players</span>
+        </button>
+      </div>    </mat-card-actions>
   </mat-card>
 </div>

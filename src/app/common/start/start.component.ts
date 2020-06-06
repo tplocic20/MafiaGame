@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {JoinFormEnum} from "../../models/join-form.enum";
 
@@ -33,13 +33,17 @@ import {JoinFormEnum} from "../../models/join-form.enum";
   ]
 })
 export class StartComponent implements OnInit {
-  JoinFormEnum = JoinFormEnum;
 
+  JoinFormEnum = JoinFormEnum;
   gameForm = null;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  resetForm() {
+    this.gameForm = null;
   }
 
   newGame() {

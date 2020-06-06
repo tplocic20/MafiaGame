@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GameService} from "../../services/game.service";
 import {Router} from "@angular/router";
@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./join-game-form.component.scss']
 })
 export class JoinGameFormComponent implements OnInit {
+
+  @Output() back = new EventEmitter();
 
   public form: FormGroup;
 

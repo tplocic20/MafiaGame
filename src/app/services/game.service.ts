@@ -6,14 +6,16 @@ import {GameState} from "../models/game-state.enum";
 import {concatAll, map, mergeMap, switchMap, take, takeUntil, tap} from "rxjs/operators";
 import {AngularFireObject} from "@angular/fire/database/interfaces";
 import {Player} from "../models/player";
+import {PlayerAlignment} from "../models/player-alignment.enum";
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameService implements OnDestroy {
+export class GameService implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject<void>();
   private gameKey;
+  private playerKey;
 
   private _game: BehaviorSubject<Game> = new BehaviorSubject<Game>(null);
   public game = this._game.asObservable();
@@ -25,9 +27,54 @@ export class GameService implements OnDestroy {
   constructor(private readonly db: AngularFireDatabase) {
   }
 
+  ngOnInit() {
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  private gameStateChange(game: Game) {
+    const me = this._me.getValue();
+    const players = Object.values(game.players);
+    if (me.owner && players.length >= 6 && players.every(player => player.ready === true)) {
+      switch (game.state) {
+        case GameState.Lobby:
+          this.handleGameStart(game);
+          break;
+        case GameState.FirstNight:
+          break;
+      }
+    }
+  }
+
+  private handleGameStart(game: Game) {
+    const playerKeys = Object.keys(game.players);
+    this.db.object(`/games/${this.gameKey}`).update({
+      state: GameState.Day
+    }).then(_ => {
+      this.calcMafia(playerKeys);
+    })
+  }
+
+  private calcMafia(playersKeys: string[]) {
+    let mafiaPlayers = 0;
+    if (playersKeys.length <= 7) mafiaPlayers = 2;
+    else if (playersKeys.length <= 10) mafiaPlayers = 3;
+    else if (playersKeys.length <= 13) mafiaPlayers = 4;
+    else if (playersKeys.length <= 16) mafiaPlayers = 5;
+    for (let i = 0; i < mafiaPlayers; i++) {
+      const randomPerson = playersKeys[Math.floor(Math.random() * playersKeys.length)];
+      playersKeys.splice(playersKeys.indexOf(randomPerson), 1);
+      this.db.object(`/games/${this.gameKey}/players/${randomPerson}`).update({
+        alignment: PlayerAlignment.Mafia
+      });
+    }
+  }
+
+  private setPlayerAlignment(playerKey) {
+
   }
 
   accessCode() {
@@ -41,9 +88,9 @@ export class GameService implements OnDestroy {
       state: GameState.Lobby,
     } as Game)).pipe(
       take(1),
-      mergeMap(item => {
+      switchMap(item => {
         this.gameKey = item.key;
-        return forkJoin([this.joinPlayer(playerName), this.fetchGame(item.key)])
+        return forkJoin([this.joinPlayer(playerName, true), this.fetchGame(item.key)])
       }),
       map(_ => code),
     )
@@ -55,8 +102,9 @@ export class GameService implements OnDestroy {
       tap(_ => {
         this.db.object(`/games/${key}`).valueChanges()
           .pipe(
-            tap(item =>  this._game.next(item as Game))
-          ).subscribe(val => console.info('game', val))
+            tap((game: Game) => {
+              this.gameStateChange(game);
+            })).subscribe(item => this._game.next(item as Game))
       })
     )
   }
@@ -72,7 +120,7 @@ export class GameService implements OnDestroy {
             throw "InvalidCode";
           }
         }),
-        mergeMap(res => {
+        switchMap(res => {
           this.gameKey = res[0].key;
           return forkJoin([this.joinPlayer(playerName), this.fetchGame(res[0].key)]);
         }),
@@ -80,9 +128,11 @@ export class GameService implements OnDestroy {
       )
   }
 
-  joinPlayer(name: string) {
+  joinPlayer(name: string, owner = false) {
     return from(this.db.list(`/games/${this.gameKey}/players`).push({
-      name
+      name,
+      owner,
+      alignment: PlayerAlignment.Townie
     })).pipe(
       take(1),
       tap(item => {
@@ -92,13 +142,19 @@ export class GameService implements OnDestroy {
   }
 
   private fetchPlayer(key) {
-    this.db.object(`/games/${this.gameKey}/players/${key}`).valueChanges()
+    this.playerKey = key;
+    this.db.object(`/games/${this.gameKey}/players/${this.playerKey}`).valueChanges()
       .pipe(
         takeUntil(this.unsubscribe),
-        tap((item: Player) => this._me.next({
-          ...item,
-          $key: key
-        }))
-      ).subscribe(val => console.info('player', val))
+      ).subscribe((item: Player) => this._me.next({
+      ...item,
+      $key: key
+    }))
+  }
+
+  setReady() {
+    this.db.object(`/games/${this.gameKey}/players/${this.playerKey}`).update({
+      ready: !this._me.getValue().ready
+    });
   }
 }

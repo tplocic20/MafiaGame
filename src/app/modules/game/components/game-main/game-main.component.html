@@ -1,4 +1,6 @@
-<mat-drawer-container fxFill hasBackdrop="false">
+<mat-drawer-container fxFill hasBackdrop="false" class="background-wrapper"
+                      [class.day]="(game | async)?.state === GameState.Day"
+                      [class.night]="(game | async)?.state === GameState.Night">
   <mat-drawer #drawerLeft mode="push">
     <app-player-card [drawer]="drawerLeft"></app-player-card>
   </mat-drawer>

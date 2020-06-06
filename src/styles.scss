@@ -1,10 +1,51 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Montserrat,serif;}
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Montserrat, serif;
+}
+
+body::after{
+  position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
+  content:url("./assets/images/miasto_dzien.png") url("./assets/images/miasto_noc.png")
+}
+
+.background-wrapper {
+  -webkit-transition: background-image 0.2s ease-in-out;
+  transition: background-image 0.2s ease-in-out;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-image: url("./assets/images/miasto_zmierzch.png ");
+}
+.day {
+  background-image: url("./assets/images/miasto_dzien.png");
+}
+.night {
+  background-image: url("./assets/images/miasto_noc.png");
+}
 
 .player-card {
   width: 200px;
+
   .player-avatar {
     width: 100%;
     height: auto;
   }
 }
+
+.button-spinner__right {
+  margin-left: 1em;
+}
+
+.button-spinner__Left {
+  margin-right: 1em;
+}
+
+.form-back-button {
+  position: absolute !important;
+  left: 0;
+}
+

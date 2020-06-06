@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GameService} from "../../../../services/game.service";
+import {GameState} from "../../../../models/game-state.enum";
 
 @Component({
   selector: 'app-game-main',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-main.component.scss']
 })
 export class GameMainComponent implements OnInit {
+  GameState = GameState;
+  public game = this.gameService.game;
 
-  constructor() { }
+  constructor(private gameService: GameService) {
+  }
 
   ngOnInit(): void {
   }

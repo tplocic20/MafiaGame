@@ -1,6 +1,6 @@
 export enum GameState {
   Lobby,
-  Ready,
+  FirstNight,
   Day,
   Night,
   Result

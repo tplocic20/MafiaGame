@@ -1,7 +1,7 @@
 .login-card {
   max-width: 500px;
   margin: auto;
-
+  transition: all 50ms;
   &.mat-card {
     box-shadow: none;
     @media (min-width: 768px) {

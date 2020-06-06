@@ -9,6 +9,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {MatButtonModule} from "@angular/material/button";
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import {MatListModule} from "@angular/material/list";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -21,7 +22,8 @@ import {MatListModule} from "@angular/material/list";
         MatCardModule,
         FlexModule,
         MatButtonModule,
-        MatListModule
+        MatListModule,
+        MatProgressSpinnerModule
     ]
 })
 export class GameModule { }

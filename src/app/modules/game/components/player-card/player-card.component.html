@@ -19,7 +19,11 @@
       </mat-card-content>
       <mat-card-actions>
         <div class="text-center">
-          <button mat-stroked-button (click)="toggleVision()">Toggle my vision</button>
+          <button mat-stroked-button [disabled]="gameReady | async" (click)="toggleVision()">
+            <span *ngIf="gameReady | async">Toggle my vision</span>
+            <mat-spinner class="d-inline-block button-spinner__Left" diameter="20" *ngIf="!(gameReady | async)"></mat-spinner>
+            <span *ngIf="!(gameReady | async)">Waiting</span>
+          </button>
         </div>
       </mat-card-actions>
     </mat-card>

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from "../../../../services/game.service";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Player} from "../../../../models/player";
 import {map, takeUntil, tap} from "rxjs/operators";
 
@@ -14,6 +14,8 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject<void>();
   public game = this.gameService.game;
   public players: Observable<Player[]>;
+  public me = this.gameService.me;
+
 
   constructor(private readonly gameService: GameService) { }
 
@@ -36,6 +38,10 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  toggleReady() {
+    this.gameService.setReady();
   }
 
 }

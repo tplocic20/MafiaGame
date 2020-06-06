@@ -8,14 +8,18 @@
       <h3>Good news!!</h3>
       <p>This app will be the best and totally neutral game master</p>
       <mat-divider></mat-divider>
-      <div class="pt-2 text-center" @backOutRight *ngIf="!gameForm">
-        <button mat-flat-button color="primary" (click)="newGame()">Start new game</button>
-        <p class="my-1">or</p>
-        <button mat-button color="primary" (click)="joinGame()">Join existing</button>
-      </div>
-      <div *ngIf="gameForm" @fadeIn [ngSwitch]="gameForm">
-        <app-new-game-form *ngSwitchCase="JoinFormEnum.NewGame"></app-new-game-form>
-        <app-join-game-form *ngSwitchCase="JoinFormEnum.JoinGame"></app-join-game-form>
+      <div class="position-relative" [style.height.px]="gameForm === JoinFormEnum.JoinGame ? 200 : 120">
+        <div class="position-absolute w-100 pt-2 text-center"
+             @backOutRight *ngIf="!gameForm">
+          <button mat-flat-button color="primary" (click)="newGame()">Start new game</button>
+          <p class="my-1">or</p>
+          <button mat-button color="primary" (click)="joinGame()">Join existing</button>
+        </div>
+        <div class="position-absolute w-100"
+             *ngIf="gameForm" @fadeIn [ngSwitch]="gameForm">
+          <app-new-game-form (back)="resetForm()" *ngSwitchCase="JoinFormEnum.NewGame"></app-new-game-form>
+          <app-join-game-form (back)="resetForm()" *ngSwitchCase="JoinFormEnum.JoinGame"></app-join-game-form>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
