@@ -18,13 +18,18 @@ import {MatInputModule} from "@angular/material/input";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { GameResultModalComponent } from './common/loader/game-result-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
     AppComponent,
     StartComponent,
     NewGameFormComponent,
-    JoinGameFormComponent
+    JoinGameFormComponent,
+    GameResultModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,12 +41,16 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
     BrowserAnimationsModule,
     MatCardModule,
     MatDividerModule,
+    MatDialogModule,
+    MatSnackBarModule,
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
+  entryComponents: [GameResultModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

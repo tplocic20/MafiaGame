@@ -4,5 +4,6 @@ export enum GameState {
   Day,
   Night,
   Vote,
-  Result,
+  MafiaWon,
+  CityWon,
 }

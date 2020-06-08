@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from "../../../../services/game.service";
 import {GameState} from "../../../../models/game-state.enum";
+import {PlayerState} from "../../../../models/player-state.enum";
 
 @Component({
   selector: 'app-game-main',
@@ -9,12 +10,19 @@ import {GameState} from "../../../../models/game-state.enum";
 })
 export class GameMainComponent implements OnInit {
   GameState = GameState;
+  PlayerState = PlayerState;
   public game = this.gameService.game;
+  public me = this.gameService.me;
 
-  constructor(private gameService: GameService) {
+  constructor(private readonly gameService: GameService) {
   }
 
   ngOnInit(): void {
+  }
+
+
+  toggleReady() {
+    this.gameService.setReady();
   }
 
 }

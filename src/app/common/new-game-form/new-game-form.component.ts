@@ -18,7 +18,7 @@ export class NewGameFormComponent implements OnInit {
 
   constructor(private readonly fb: FormBuilder,
               private readonly router: Router,
-              private gameService: GameService) { }
+              private readonly gameService: GameService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({

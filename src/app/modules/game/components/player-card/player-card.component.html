@@ -9,6 +9,7 @@
         <mat-card-title>{{(me | async).name}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        {{(me | async).$key}}
         <h3>Player tips:</h3>
         <ol>
           <li>Remember to not show other players Your identity</li>
@@ -17,16 +18,16 @@
             <strong class="d-block">Beware!</strong> Someone may be watching
           </li>
         </ol>
-      </mat-card-content>
-      <mat-card-actions>
-        <div class="text-center">
-          <button mat-stroked-button [disabled]="gameReady | async" (click)="toggleVision()">
-            <span *ngIf="gameReady | async">Toggle my vision</span>
-            <mat-spinner class="d-inline-block button-spinner__Left" diameter="20" *ngIf="!(gameReady | async)"></mat-spinner>
-            <span *ngIf="!(gameReady | async)">Waiting</span>
-          </button>
+        <div *ngIf="(me | async)?.alignment === PlayerAlignment.Mafia">
+          <mat-divider></mat-divider>
+          <h3>Your comrades:</h3>
+          <ol>
+            <li *ngFor="let player of (game | async).players | filterMafiaOnly">
+              {{player.name}}
+            </li>
+          </ol>
         </div>
-      </mat-card-actions>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>

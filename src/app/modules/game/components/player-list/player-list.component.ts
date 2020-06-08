@@ -3,6 +3,9 @@ import {GameService} from "../../../../services/game.service";
 import {Observable, Subject} from "rxjs";
 import {Player} from "../../../../models/player";
 import {map, takeUntil, tap} from "rxjs/operators";
+import { GameState } from 'src/app/models/game-state.enum';
+import {PlayerAlignment} from "../../../../models/player-alignment.enum";
+import {PlayerState} from "../../../../models/player-state.enum";
 
 @Component({
   selector: 'app-player-list',
@@ -10,6 +13,9 @@ import {map, takeUntil, tap} from "rxjs/operators";
   styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent implements OnInit, OnDestroy {
+  GameState = GameState;
+  PlayerState = PlayerState;
+  PlayerAlignment = PlayerAlignment;
 
   private unsubscribe: Subject<void> = new Subject<void>();
   public game = this.gameService.game;
@@ -39,8 +45,15 @@ export class PlayerListComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  toggleReady() {
-    this.gameService.setReady();
+  keyTracker(index, item: Player) {
+    return item.$key;
   }
 
+  mafiaMark(player: Player) {
+    this.gameService.mafiaMark(player.$key);
+  }
+
+  markExile(player: Player) {
+    this.gameService.markExile(player.$key);
+  }
 }

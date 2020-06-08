@@ -13,6 +13,7 @@ export class JoinGameFormComponent implements OnInit {
   @Output() back = new EventEmitter();
 
   public form: FormGroup;
+  public loading = false;
 
   constructor(private readonly fb: FormBuilder,
               private readonly router: Router,
@@ -36,10 +37,13 @@ export class JoinGameFormComponent implements OnInit {
 
   join() {
     this.form.markAllAsTouched();
-    if (this.form.valid) {
+    if (this.form.valid && !this.loading) {
+      this.loading = true;
       const data = this.form.value;
       this.gameService.joinGame(data.gameCode, data.playerName).subscribe(item => {
-        this.router.navigate(['game', data.gameCode])
+        this.router.navigate(['game', data.gameCode]).then(_ => {
+          this.loading = false;
+        })
       }, err => {
         this.gameCodeCtrl.setErrors({'InvalidCode': true})
       });

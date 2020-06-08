@@ -16,6 +16,7 @@ export class PlayerCardComponent implements OnInit {
 
   @Input() drawer: MatDrawer;
   public me = this.gameService.me;
+  public game = this.gameService.game;
   public gameReady: Observable<boolean>;
 
   constructor(private readonly gameService: GameService) { }

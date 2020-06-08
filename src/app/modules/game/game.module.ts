@@ -10,11 +10,13 @@ import {MatButtonModule} from "@angular/material/button";
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import {MatListModule} from "@angular/material/list";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { JoinCodeComponent } from './components/join-code/join-code.component';
+import {FilterMafiaOnlyModule} from "../../directives/pipes/filter-mafia-only/filter-mafia-only.module";
 
 
 
 @NgModule({
-  declarations: [GameMainComponent, PlayerCardComponent, PlayerListComponent],
+  declarations: [GameMainComponent, PlayerCardComponent, PlayerListComponent, JoinCodeComponent],
     imports: [
         CommonModule,
         GameRouter,
@@ -23,7 +25,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         FlexModule,
         MatButtonModule,
         MatListModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        FilterMafiaOnlyModule
     ]
 })
 export class GameModule { }

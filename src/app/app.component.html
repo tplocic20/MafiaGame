@@ -1,1 +1,8 @@
+<div fxFlexFill>
+  <div class="loader" *ngIf="loading | async">
+    <div>
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
   <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,8 @@
+<div class="text-center" *ngIf="(game | async).state === GameState.Lobby">
+  <p>
+    Show this code to other players, and have fun!
+  </p>
+  <code class="code-wrapper">
+    {{(game | async).accessCode}}
+  </code>
+</div>
