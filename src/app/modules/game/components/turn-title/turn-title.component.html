@@ -1,0 +1,7 @@
+<h1 [ngSwitch]="(game | async)?.state">
+  <span *ngSwitchCase="GameState.FirstNight">First night</span>
+  <span *ngSwitchCase="GameState.Vote">Vote evening</span>
+  <span *ngSwitchCase="GameState.Day">Day</span>
+  <span *ngSwitchCase="GameState.Night">Night</span>
+  <span *ngSwitchCase="GameState.Lobby">Lobby</span>
+</h1>

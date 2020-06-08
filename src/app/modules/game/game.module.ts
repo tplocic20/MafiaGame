@@ -12,11 +12,12 @@ import {MatListModule} from "@angular/material/list";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { JoinCodeComponent } from './components/join-code/join-code.component';
 import {FilterMafiaOnlyModule} from "../../directives/pipes/filter-mafia-only/filter-mafia-only.module";
+import { TurnTitleComponent } from './components/turn-title/turn-title.component';
 
 
 
 @NgModule({
-  declarations: [GameMainComponent, PlayerCardComponent, PlayerListComponent, JoinCodeComponent],
+  declarations: [GameMainComponent, PlayerCardComponent, PlayerListComponent, JoinCodeComponent, TurnTitleComponent],
     imports: [
         CommonModule,
         GameRouter,
